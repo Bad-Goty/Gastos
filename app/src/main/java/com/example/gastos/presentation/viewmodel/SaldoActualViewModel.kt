@@ -3,8 +3,8 @@ package com.example.gastos.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.gastos.roomdb.SaldoActual
-import com.example.gastos.roomdb.SaldoActualRepository
+import com.example.gastos.roomdb.saldo.SaldoActual
+import com.example.gastos.roomdb.saldo.SaldoActualRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import java.util.Date

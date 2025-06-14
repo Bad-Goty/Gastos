@@ -1,4 +1,4 @@
-package com.example.gastos.roomdb
+package com.example.gastos.roomdb.saldo
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow

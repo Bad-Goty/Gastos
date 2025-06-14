@@ -1,8 +1,6 @@
 package com.example.gastos.presentation.views
 
-import android.util.Log
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -10,11 +8,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -22,8 +22,12 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Shop
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -43,25 +47,27 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.example.gastos.R
 import com.example.gastos.presentation.components.MyCard
 import com.example.gastos.presentation.components.MyScaffold
 import com.example.gastos.presentation.viewmodel.SaldoActualViewModel
 import com.example.gastos.presentation.viewmodel.SaldoActualViewModelFactory
-import com.example.gastos.roomdb.SaldoActualRepository
-import com.example.gastos.roomdb.SaldoDataBase
+import com.example.gastos.roomdb.saldo.SaldoActualRepository
+import com.example.gastos.roomdb.saldo.SaldoDataBase
 
 @Composable
-fun ContenedorPrincipal() {
+fun ContenedorPrincipal(navController: NavController) {
     Box(Modifier.fillMaxSize()) {
-        MyScaffold("Gastos") {
+        MyScaffold("Inicio", navController) {
             Column(
                 Modifier
                     .fillMaxSize()
-                    .verticalScroll(rememberScrollState())
+                    //.verticalScroll(rememberScrollState())
                     .padding(horizontal = 10.dp)
             ) {
 
@@ -218,7 +224,7 @@ fun EditSaldoDialog(
                     contentColor = Color.White
                 )
 
-                ) {
+            ) {
                 Text(if (esInicializar) "Establecer" else "Agregar")
             }
         },
@@ -238,28 +244,53 @@ fun EditSaldoDialog(
 
 @Composable
 fun GastosRecientes() {
-    var showDialog by remember { mutableStateOf(false) }
-
-    Row(
-        Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
+    Column(modifier = Modifier.fillMaxSize()) {
         Text(
             "Gastos Recientes",
             color = Color.White,
-            fontSize = 25.sp
+            fontSize = 25.sp,
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center
         )
 
-        Icon(
-            Icons.Default.Add,
-            contentDescription = "Add",
-            tint = Color.White,
+        Column(
             modifier = Modifier
-                .size(30.dp)
-                .clickable {
-                    showDialog = true
+                .weight(1f) // ← esto limita la altura restante
+                .verticalScroll(rememberScrollState())
+        ) {
+            for (i in 1..10) {
+                MyCard(
+                    Modifier
+                        .fillMaxWidth()
+                        .height(80.dp)
+                ) {
+                    Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.SpaceAround, verticalAlignment = Alignment.CenterVertically) {
+                        Card(
+                            modifier = Modifier.size(40.dp),
+                            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondary)
+                        ) {
+                            Box(
+                                modifier = Modifier.fillMaxSize(),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Filled.ShoppingCart,
+                                    contentDescription = "Gasto",
+                                    tint = Color.White,
+                                    modifier = Modifier.size(24.dp)
+                                )
+                            }
+                        }
+
+                        Text("Despensa")
+
+                        Text("-$500")
+                    }
                 }
-        )
+
+                Spacer(Modifier.height(10.dp))
+            }
+        }
     }
 
 }

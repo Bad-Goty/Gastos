@@ -51,6 +51,18 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.1")
     implementation("androidx.compose.runtime:runtime-livedata:1.8.2")
 
+
+    //Iconocs
+    implementation ("androidx.compose.material:material-icons-extended")
+
+    //Navegacion
+    implementation("androidx.navigation:navigation-compose:2.9.0")
+
+    //Lottie
+    implementation ("com.airbnb.android:lottie-compose:6.6.6")
+
+    implementation ("androidx.core:core-splashscreen:1.0.1")
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

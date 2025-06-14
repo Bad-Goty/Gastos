@@ -1,4 +1,4 @@
-package com.example.gastos.roomdb
+package com.example.gastos.roomdb.saldo
 
 import android.content.Context
 import androidx.room.Database
@@ -19,7 +19,7 @@ abstract class SaldoDataBase: RoomDatabase() {
      companion object{
          private var INSTANCE: SaldoDataBase? = null
 
-         fun  getDatabase(context: Context) : SaldoDataBase{
+         fun  getDatabase(context: Context) : SaldoDataBase {
              return INSTANCE ?: synchronized(this) {
                  val instace = Room.databaseBuilder(
                      context.applicationContext,
