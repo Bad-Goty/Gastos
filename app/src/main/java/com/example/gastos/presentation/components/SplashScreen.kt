@@ -30,7 +30,7 @@ fun SplashScreen(navController: NavController) {
 
     // Lanzamos un efecto para cambiar de pantalla tras 4 segundos
     LaunchedEffect(Unit) {
-        delay(5000) // Espera 4 segundos
+        delay(100) // Espera 4 segundos
         navController.navigate("home") {
             popUpTo("splash") { inclusive = true } // Elimina splash del stack
         }
